@@ -6,7 +6,7 @@
 #ifndef INSTR_A3XX_H_
 #define INSTR_A3XX_H_
 
-#define PACKED __attribute__((__packed__))
+//#define PACKED __attribute__((__packed__))
 
 #include <assert.h>
 #include <stdbool.h>

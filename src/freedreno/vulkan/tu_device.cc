@@ -11,10 +11,11 @@
 
 #include "drm-uapi/drm_fourcc.h"
 #include "fdl/freedreno_layout.h"
-#include <fcntl.h>
+#ifndef _WIN32
 #include <poll.h>
-
+#endif
 #include "git_sha1.h"
+#include "util/fcntl.h"
 #include "util/u_debug.h"
 #include "util/disk_cache.h"
 #include "util/hex.h"

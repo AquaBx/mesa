@@ -212,7 +212,7 @@ static const struct isa_bitset bitset_${bitset.get_c_name()}_gen_${bitset.gen_mi
 %endfor
 
 %for root_name, root in isa.roots.items():
-static const struct isa_bitset *${root.get_c_name()}[];
+static const struct isa_bitset *${root.get_c_name()}[${root.get_size()}];
 %endfor
 
 /*

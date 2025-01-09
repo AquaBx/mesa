@@ -395,8 +395,14 @@ struct tu_device
 
    /* Condition variable for timeline semaphore to notify waiters when a
     * new submit is executed. */
+
+   #ifdef _WIN32
+   cnd_t timeline_cond;
+   mtx_t submit_mutex;
+   #else
    pthread_cond_t timeline_cond;
    pthread_mutex_t submit_mutex;
+   #endif
 
    struct tu_autotune autotune;
 

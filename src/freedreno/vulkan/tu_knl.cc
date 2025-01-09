@@ -7,7 +7,6 @@
  * Copyright © 2015 Intel Corporation
  */
 
-#include <fcntl.h>
 
 #ifdef MAJOR_IN_MKDEV
 #include <sys/mkdev.h>
@@ -16,8 +15,11 @@
 #include <sys/sysmacros.h>
 #endif
 
+#ifndef _WIN32
 #include <sys/mman.h>
-
+#else
+#include "util/win_mmap.c"
+#endif
 #include "vk_debug_utils.h"
 
 #include "util/libdrm.h"
@@ -26,6 +28,7 @@
 #include "tu_knl.h"
 #include "tu_queue.h"
 #include "tu_rmv.h"
+#include "util/fcntl.h"
 
 
 VkResult

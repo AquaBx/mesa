@@ -24,6 +24,9 @@
 #include "isa/isa.h"
 
 #include "disasm.h"
+#ifdef _WIN32
+#include "util/windows_fun_impl.c"
+#endif
 
 static uint16_t
 const_imm_index_to_reg(const struct ir3_const_state *const_state, unsigned i)

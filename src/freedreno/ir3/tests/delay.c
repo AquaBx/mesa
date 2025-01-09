@@ -2,8 +2,13 @@
  * Copyright © 2020 Google, Inc.
  * SPDX-License-Identifier: MIT
  */
-
+ 
+#ifdef _WIN32
+#include "util/windows_fun_impl.c"
+#else
 #include <err.h>
+#endif
+
 #include <stdio.h>
 
 #include "ir3.h"

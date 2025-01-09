@@ -12,6 +12,9 @@
  * from, and the qcom disassembly as a comment if it differs from what we
  * produce.
  */
+#ifdef _WIN32
+#include "util/windows_fun_impl.c"
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>

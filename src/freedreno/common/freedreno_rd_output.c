@@ -11,13 +11,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
-#include <unistd.h>
 
+#ifdef _WIN32
+#include <io.h>
+#define ftruncate _chsize_s
+#else
+#include <unistd.h>
+#endif
 #include "c11/threads.h"
 #include "util/detect_os.h"
 #include "util/log.h"
 #include "util/u_atomic.h"
 #include "util/u_debug.h"
+#include "util/u_string.h"
+#include <util/memstream.h>
 
 #if DETECT_OS_ANDROID
 static const char *fd_rd_output_base_path = "/data/local/tmp";

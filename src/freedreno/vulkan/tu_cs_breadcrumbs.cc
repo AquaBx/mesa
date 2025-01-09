@@ -5,11 +5,13 @@
 
 #include "tu_cs.h"
 
+#ifndef _WIN32
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
-
+#endif
 #include "tu_device.h"
+#include <util/u_atomic.h>
 
 /* A simple implementations of breadcrumbs tracking of GPU progress
  * intended to be a last resort when debugging unrecoverable hangs.
@@ -32,7 +34,7 @@ struct breadcrumbs_context
    uint32_t breadcrumb_breakpoint_hits;
 
    bool thread_stop;
-   pthread_t breadcrumbs_thread;
+   thrd_t breadcrumbs_thread;
 
    struct tu_device *device;
 
@@ -138,7 +140,7 @@ tu_breadcrumbs_init(struct tu_device *device)
    global->breadcrumb_cpu_sync_seqno = 0;
    global->breadcrumb_gpu_sync_seqno = 0;
 
-   pthread_create(&ctx->breadcrumbs_thread, NULL, sync_gpu_with_cpu, ctx);
+   thrd_create(&ctx->breadcrumbs_thread, NULL, sync_gpu_with_cpu, ctx);
 }
 
 void
@@ -149,7 +151,7 @@ tu_breadcrumbs_finish(struct tu_device *device)
       return;
 
    ctx->thread_stop = true;
-   pthread_join(ctx->breadcrumbs_thread, NULL);
+   thrd_join(ctx->breadcrumbs_thread, NULL);
 
    free(ctx);
 }

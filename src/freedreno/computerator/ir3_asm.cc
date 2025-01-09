@@ -23,7 +23,11 @@
 
 #include "ir3/ir3_assembler.h"
 #include "ir3/ir3_compiler.h"
-
+#ifdef _WIN32
+#include "util/windows_fun_impl.c"
+#else
+#include <err.h>
+#endif
 #include "ir3_asm.h"
 
 struct ir3_kernel *

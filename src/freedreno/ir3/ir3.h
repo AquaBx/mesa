@@ -228,7 +228,7 @@ struct ir3_register {
  */
 #define DECLARE_ARRAY(type, name)                                              \
    unsigned name##_count, name##_sz;                                           \
-   type *name;
+   type *name
 
 #define array_insert(ctx, arr, ...)                                            \
    do {                                                                        \
@@ -744,7 +744,7 @@ block_id(struct ir3_block *block)
 #if MESA_DEBUG
    return block->serialno;
 #else
-   return (uint32_t)(unsigned long)block;
+   return (uint32_t)(uintptr_t)block;
 #endif
 }
 

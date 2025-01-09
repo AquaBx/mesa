@@ -27,6 +27,10 @@
 #include "ir3/ir3.h"
 #include "ir3_parser.h"
 
+#ifdef _WIN32
+#include "util/windows_fun_impl.c"
+#endif
+
 #define YY_NO_INPUT
 #define YY_NO_UNPUT
 #define TOKEN(t) (ir3_yylval.tok = t)

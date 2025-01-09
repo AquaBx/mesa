@@ -34,8 +34,7 @@ ir3_disk_cache_init(struct ir3_compiler *compiler)
       return;
 
    const char *renderer = fd_dev_name(compiler->dev_id);
-   const struct build_id_note *note =
-      build_id_find_nhdr_for_addr(ir3_disk_cache_init);
+   const struct build_id_note *note = build_id_find_nhdr_for_addr(ir3_disk_cache_init);
    assert(note && build_id_length(note) == 20); /* sha1 */
 
    const uint8_t *id_sha1 = build_id_data(note);

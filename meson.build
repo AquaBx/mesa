@@ -594,7 +594,7 @@ if with_dri
 endif
 
 dep_dxheaders = null_dep
-if with_gallium_d3d12 or with_microsoft_clc or with_microsoft_vk or with_gfxstream_vk and host_machine.system() == 'windows'
+if with_gallium_d3d12 or with_microsoft_clc or with_microsoft_vk or (with_gfxstream_vk or with_freedreno_vk) and host_machine.system() == 'windows'
   dep_dxheaders = dependency('directx-headers', required : false)
   if not dep_dxheaders.found()
     dep_dxheaders = dependency('DirectX-Headers',

@@ -6,7 +6,11 @@
 #ifndef REDUMP_H_
 #define REDUMP_H_
 
+#ifndef _WIN32
 #include <unistd.h>
+#else
+#include <io.h>
+#endif
 
 enum rd_sect_type {
    RD_NONE,

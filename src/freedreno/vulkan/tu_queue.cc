@@ -79,7 +79,7 @@ queue_submit(struct vk_queue *_queue, struct vk_queue_submit *vk_submit)
    if (TU_DEBUG(LOG_SKIP_GMEM_OPS))
       tu_dbg_log_gmem_load_store_skips(device);
 
-   pthread_mutex_lock(&device->submit_mutex);
+   mtx_lock(&device->submit_mutex);
 
    struct tu_cmd_buffer **cmd_buffers =
       (struct tu_cmd_buffer **) vk_submit->command_buffers;
@@ -188,7 +188,7 @@ queue_submit(struct vk_queue *_queue, struct vk_queue_submit *vk_submit)
                       u_trace_submission_data);
 
    if (result != VK_SUCCESS) {
-      pthread_mutex_unlock(&device->submit_mutex);
+      mtx_unlock(&device->submit_mutex);
       goto out;
    }
 
@@ -215,8 +215,8 @@ queue_submit(struct vk_queue *_queue, struct vk_queue_submit *vk_submit)
 
    device->submit_count++;
 
-   pthread_mutex_unlock(&device->submit_mutex);
-   pthread_cond_broadcast(&queue->device->timeline_cond);
+   mtx_unlock(&device->submit_mutex);
+   cnd_broadcast(&queue->device->timeline_cond);
 
    u_trace_context_process(&device->trace_context, false);
 

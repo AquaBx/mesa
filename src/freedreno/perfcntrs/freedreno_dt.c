@@ -4,21 +4,32 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include <fcntl.h>
-#include <ftw.h>
+
 #include <inttypes.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <io.h>
+#include "util/ftw.c"
+#include "util/win_mmap.c"
+#include <winsock2.h>
+#else
+#include <ftw.h>
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/mman.h>
+#endif
+
 #include <sys/stat.h>
 #include <sys/types.h>
 
 #include "util/macros.h"
 #include "util/os_file.h"
+#include "util/u_string.h"
+#include "util/fcntl.h"
 
 #include "freedreno_dt.h"
 
